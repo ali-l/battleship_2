@@ -1,4 +1,5 @@
 import Square, { Status } from './Square'
+import Ship from "./Ship"
 
 export default class Grid {
   squares: Array<Square>
@@ -8,6 +9,7 @@ export default class Grid {
   }
 
   processGuess(index: number): Grid {
+    console.log(this.ships)
     let square = this.squares[index]
     let newSquare = { ...square }
 
@@ -15,5 +17,30 @@ export default class Grid {
 
     this.squares[index] = newSquare
     return new Grid([...this.squares])
+  }
+
+  get ships(): Array<Ship> {
+    let oShips = this.squares.reduce((obj, square) => {
+      if (!square.ship) return obj
+
+      let entry = obj.get(square.ship.id)
+      if (entry) {
+        entry.push(square)
+      } else {
+        obj.set(square.ship.id, [square])
+      }
+
+      return obj
+    }, new Map<number, Array<Square>>())
+
+    let ships: Array<Ship> = []
+
+    oShips.forEach((squares) => {
+      let sShip = squares[0].ship
+      // @ts-ignore
+      ships.push(new Ship(sShip.size, sShip.id, sShip.name, squares))
+    })
+
+    return ships
   }
 }
