@@ -1,8 +1,35 @@
 <script>
+    import { onMount } from 'svelte'
     import Board from './Board.svelte'
+    import * as client from './client/main'
 
-    export let name
+    let grid = []
+    let length
+
+    onMount(async function () {
+        grid = await client.generateGrid()
+        length = Math.sqrt(grid.length)
+    })
+
+    async function guess() {
+        let index = await client.guess(grid)
+        processGuess(index)
+    }
+
+    function processGuess(index) {
+        let square = grid[index]
+        let newSquare = { ...square }
+        square.ship == null ? newSquare.status = 1 : newSquare.status = 3
+        grid[index] = newSquare
+    }
 </script>
+
+<main>
+    <Board grid={grid} length={length}/>
+    <div on:click={guess}>
+        Guess
+    </div>
+</main>
 
 <style>
     main {
@@ -12,24 +39,10 @@
         margin: 0 auto;
     }
 
-    h1 {
-        color: #ff3e00;
-        text-transform: uppercase;
-        font-size: 4em;
-        font-weight: 100;
-    }
-
     @media (min-width: 640px) {
         main {
             max-width: none;
         }
     }
 </style>
-
-<main>
-    <h1>Hello {name}!</h1>
-    <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-    <br>
-    <Board/>
-</main>
 

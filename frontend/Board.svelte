@@ -1,25 +1,6 @@
 <script>
-    import { onMount } from 'svelte'
-    import * as client from './client/main'
-
-    let grid = [];
-
-    onMount(async function () {
-        grid = await client.generateGrid();
-        length = Math.sqrt(grid.length)
-    });
-
-    async function guess() {
-        let index = await client.guess(grid);
-        processGuess(index)
-    }
-
-    function processGuess(index) {
-        let square = grid[index];
-        let newSquare = { ...square };
-        square.ship == null ? newSquare.status = 1 : newSquare.status = 3;
-        grid[index] = newSquare
-    }
+    export let grid;
+    export let length;
 </script>
 
 <div class="container" style="--length:{length}">
@@ -28,10 +9,6 @@
              style="grid-row-start: {Math.floor(i / length) + 1}; grid-column-start: { i % length + 1}">
         </div>
     {/each}
-</div>
-
-<div on:click={guess}>
-    Guess
 </div>
 
 <style>
