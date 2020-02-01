@@ -4,7 +4,7 @@ import * as api from './apiClient'
 import Square from "./Square"
 
 export async function guess(grid: Grid): Promise<number> {
-  console.log('Local guess 1: ', randomGuess(grid))
+  localGuess(grid)
 
   let index = await api.guess(grid)
   console.log("API Guess: ", index)
@@ -14,7 +14,7 @@ export async function guess(grid: Grid): Promise<number> {
 export function localGuess(grid: Grid): number {
   let index = randomGuess(grid)
 
-  console.log('Local guess 2: ', index)
+  console.log('Local guess: ', index)
 
   return index
 }

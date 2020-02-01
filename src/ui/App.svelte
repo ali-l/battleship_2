@@ -20,7 +20,6 @@
         index = await lib.localGuess(grid2)
         grid2 = grid2.processGuess(index)
     }
-
 </script>
 
 <main>
