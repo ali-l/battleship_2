@@ -3,12 +3,10 @@
     import Board from './Board.svelte'
     import * as client from './client/main'
 
-    let grid = []
-    let length
+    let grid
 
     onMount(async function () {
         grid = await client.generateGrid()
-        length = Math.sqrt(grid.length)
     })
 
     async function guess() {
@@ -25,8 +23,8 @@
 </script>
 
 <main>
-    <Board grid={grid} length={length}/>
-    <div on:click={guess}>
+    <Board grid={grid}/>
+    <div class="button" on:click={guess}>
         Guess
     </div>
 </main>
@@ -37,6 +35,10 @@
         padding: 1em;
         max-width: 240px;
         margin: 0 auto;
+    }
+
+    .button {
+        cursor: pointer;
     }
 
     @media (min-width: 640px) {

@@ -1,11 +1,11 @@
 <script>
-    export let grid;
-    export let length;
+    export let grid = [];
+    $: length = Math.sqrt(grid.length);
 </script>
 
 <div class="container" style="--length:{length}">
     {#each grid as square, i}
-        <div class="item" data-test="works" data-state="{square.status}"
+        <div class="item" data-state="{square.status}"
              style="grid-row-start: {Math.floor(i / length) + 1}; grid-column-start: { i % length + 1}">
         </div>
     {/each}
