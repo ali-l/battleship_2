@@ -10,10 +10,12 @@ export enum Status {
 export default class Square {
   status: Status
   ship: Ship | null
+  index: number
 
-  constructor(ship: Ship, status: number) {
+  constructor(ship: Ship, status: number, index: number) {
     // @ts-ignore
     this.status = Status[Status[status]]
     this.ship = ship
+    this.index = index
   }
 }

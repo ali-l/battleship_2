@@ -1,4 +1,4 @@
-import Square from './Square'
+import Square, { Status } from './Square'
 
 export default class Grid {
   squares: Array<Square>
@@ -11,7 +11,7 @@ export default class Grid {
     let square = this.squares[index]
     let newSquare = { ...square }
 
-    square.ship == null ? newSquare.status = 1 : newSquare.status = 3
+    square.ship == null ? newSquare.status = Status.miss : newSquare.status = Status.hit
 
     this.squares[index] = newSquare
     return new Grid([...this.squares])

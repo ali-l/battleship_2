@@ -21,19 +21,6 @@
         grid2 = grid2.processGuess(index)
     }
 
-    function processGuess(index) {
-        let square = grid[index]
-        let newSquare = { ...square }
-        square.ship == null ? newSquare.status = 1 : newSquare.status = 3
-        grid[index] = newSquare
-    }
-
-    function processGuess2(index) {
-        let square = grid2[index]
-        let newSquare = { ...square }
-        square.ship == null ? newSquare.status = 1 : newSquare.status = 3
-        grid2[index] = newSquare
-    }
 </script>
 
 <main>

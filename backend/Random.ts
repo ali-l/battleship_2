@@ -1,5 +1,5 @@
 import Grid from "./Grid"
-import { Status } from "./Square"
+import Square, { Status } from "./Square"
 
 export function guess(grid: Grid): number {
   return grid.squares
@@ -7,16 +7,17 @@ export function guess(grid: Grid): number {
     .run(squares => pickIndex(squares))
 }
 
-function pickIndex(array: Array<any>): number {
-  return Math.floor(Math.random() * array.length)
+function pickIndex(squares: Array<Square>): number {
+  let square = squares[Math.floor(Math.random() * squares.length)]
+  return square.index
 }
 
 declare global {
   interface Array<T> {
-    run<T, R>(block: (arg: Array<T>) => R): R
+    run<T, R>(this: Array<T>, block: (arg: Array<T>) => R): R
   }
 }
 
-Array.prototype.run = function run<T, R>(block: (arg: Array<T>) => R): R {
+Array.prototype.run = function run<T, R>(this: Array<T>, block: (arg: Array<T>) => R): R {
   return block(this)
 }
