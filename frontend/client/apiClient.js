@@ -6,7 +6,7 @@ export async function guess(grid) {
   let options = {
     method: 'POST',
     mode: 'cors',
-    body: buildParams({ squares: JSON.stringify(grid) })
+    body: buildParams({ squares: JSON.stringify(grid.squares) })
   };
 
   let response = await fetch(guessURL, options);

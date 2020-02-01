@@ -2,7 +2,7 @@ import Grid from "./Grid"
 import { Status } from "./Square"
 
 export function guess(grid: Grid): number {
-  return grid
+  return grid.squares
     .filter(square => square.status != Status.miss)
     .run(squares => pickIndex(squares))
 }
