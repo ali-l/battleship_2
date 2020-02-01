@@ -1,5 +1,5 @@
 import * as api from './apiClient'
-import * as local from '../../backend/main.ts'
+import * as local from '../lib/main'
 
 export async function guess(grid) {
   console.log('Local guess 1: ', local.guess(grid))

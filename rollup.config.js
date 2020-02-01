@@ -9,12 +9,12 @@ import typescript from '@rollup/plugin-typescript';
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: { frontend: 'frontend/main.js', backend: 'backend/main.ts' },
+  input: 'src/main.js',
   output: {
     sourcemap: true,
     format: 'esm',
     name: 'app',
-		dir: 'public/build/'
+    file: 'public/build/bundle.js'
   },
   plugins: [
     svelte({
@@ -54,7 +54,7 @@ export default {
       'process.env.GUESS_URL': process.env.GUESS_URL,
       'process.env.BOARD_URL': process.env.BOARD_URL
     }),
-    typescript({tsconfig: 'backend/tsconfig.json'})
+    typescript()
   ],
   watch: {
     clearScreen: false

@@ -1,8 +1,8 @@
 <script>
     import { onMount } from 'svelte'
     import Board from './Board.svelte'
-    import * as client from './client/main'
-    import Grid from "../backend/Grid"
+    import * as client from '../client/main'
+    import Grid from "../lib/Grid"
 
     let grid = new Grid([])
     let grid2 = new Grid([])
