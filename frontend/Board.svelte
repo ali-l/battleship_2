@@ -1,16 +1,16 @@
 <script>
     import { onMount } from 'svelte'
-    import * as api from './backend/main'
+    import * as client from './client/main'
 
     let grid = [];
 
     onMount(async function () {
-        grid = await api.generateGrid();
+        grid = await client.generateGrid();
         length = Math.sqrt(grid.length)
     });
 
     async function guess() {
-        let index = await api.guess(grid);
+        let index = await client.guess(grid);
         processGuess(index)
     }
 
