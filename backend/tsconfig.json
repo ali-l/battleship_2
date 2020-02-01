@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ES2019"
+    ],
+    "types": [],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
