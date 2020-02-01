@@ -1,23 +1,23 @@
 <script>
     import { onMount } from 'svelte'
     import Board from './Board.svelte'
-    import * as client from '../client/main'
+    import * as lib from '../lib/main'
     import Grid from "../lib/Grid"
 
     let grid = new Grid([])
     let grid2 = new Grid([])
 
     onMount(async function () {
-        let squares = await client.generateGrid()
+        let squares = await lib.generateGrid()
         grid = new Grid(squares)
         grid2 = new Grid(squares)
     })
 
     async function guess() {
-        let index = await client.guess(grid)
+        let index = await lib.guess(grid)
         grid = grid.processGuess(index)
 
-        index = await client.localGuess(grid2)
+        index = await lib.localGuess(grid2)
         grid2 = grid2.processGuess(index)
     }
 

@@ -9,7 +9,7 @@ import typescript from '@rollup/plugin-typescript';
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: 'src/main.js',
+  input: 'src/entry.js',
   output: {
     sourcemap: true,
     format: 'esm',
