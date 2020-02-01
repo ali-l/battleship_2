@@ -1,7 +1,9 @@
 import * as api from './apiClient'
 
 export async function guess(grid) {
-  return api.guess(grid)
+  let index = api.guess(grid)
+  console.log("API Guess: ", index);
+  return index
 }
 
 export async function generateGrid() {

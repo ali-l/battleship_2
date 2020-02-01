@@ -11,7 +11,6 @@
 
     async function guess() {
         let index = await api.guess(grid);
-        console.log("API Guess: ", index);
         processGuess(index)
     }
 
