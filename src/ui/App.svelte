@@ -11,6 +11,9 @@
         let squares = await lib.generateGrid()
         grid = new Grid(squares)
         grid2 = new Grid(squares)
+
+        grid.calculateProbabilities()
+        grid2.calculateProbabilities()
     })
 
     async function guess() {
@@ -19,6 +22,9 @@
 
         index = await lib.localGuess(grid2)
         grid2 = grid2.processGuess(index)
+
+        grid.calculateProbabilities()
+        grid2.calculateProbabilities()
     }
 </script>
 

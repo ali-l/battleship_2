@@ -1,5 +1,5 @@
 import Grid from './Grid'
-import { guess as randomGuess } from './random'
+import { guess as randomGuess } from './probability'
 import { guess as proximityGuess } from './proximity'
 import * as api from './apiClient'
 import Square from "./Square"
@@ -14,7 +14,6 @@ export function localGuess(grid: Grid): number {
   let index = selectGuesser(grid)()
 
   console.log('Local guess: ', index)
-  console.log('partially hit ships: ', grid.partiallyHitShips)
 
   return index
 }

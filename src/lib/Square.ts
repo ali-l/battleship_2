@@ -18,6 +18,8 @@ export default class Square {
   status: Status
   ship: Ship | null
   index: number
+  // @ts-ignore
+  probability = 0
 
   static fromJSON(squareJson: SquareJSON): Square {
     let ship = squareJson.ship
@@ -65,6 +67,14 @@ export default class Square {
     return this
       .unrevealedNeighbourSquares(grid)
       .filter(s => s.column == this.column)
+  }
+
+  toJSON(): SquareJSON {
+    return {
+      status: this.status,
+      ship: this.ship,
+      index: this.index
+    }
   }
 
   get unrevealed(): boolean {

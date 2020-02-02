@@ -24,6 +24,71 @@ export default class Grid {
     return this.ships.filter(s => s.partiallyHit)
   }
 
+  get aliveShips(): Array<Ship> {
+    return this.ships.filter(s => s.alive)
+  }
+
+  get unrevealedSquares(): Array<Square> {
+    return this
+      .squares
+      .filter(s => s.unrevealed)
+  }
+
+  get highestProbabilityUnrevealedSquare(): Square {
+    return this
+      .unrevealedSquares
+      .sort((a, b) => b.probability - a.probability)[0]
+  }
+
+  calculateProbabilities() {
+    this.resetProbabilities()
+
+    this
+      .aliveShips
+      .forEach(ship => {
+        this.unrevealedSquares.forEach(square => {
+          let horizontalShip = Ship.horizontalShipStartingAt(square.index, ship.size)
+          let verticalShip = Ship.verticalShipStartingAt(square.index, ship.size)
+          if (horizontalShip && this.canPlace(horizontalShip)) {
+            horizontalShip.squares.forEach(square => {
+              this.squares[square.index].probability += 1
+            })
+          } else {
+            // console.log('cant place', ship, ' at', square.index)
+          }
+
+          if (verticalShip && this.canPlace(verticalShip)) {
+            verticalShip.squares.forEach(square => {
+              this.squares[square.index].probability += 1
+            })
+          } else {
+            // console.log('cant place', ship, ' at', square)
+          }
+        })
+      })
+
+    console.log('highest probability: ', this.highestProbabilityUnrevealedSquare)
+  }
+
+  private resetProbabilities() {
+    this.squares.forEach(s => {
+      s.probability = 0
+    })
+  }
+
+  get maxIndex(): number {
+    return length ** 2 - 1
+  }
+
+  canPlace(ship: Ship): boolean {
+    return ship
+        .squares
+        .every(s => s.index <= this.maxIndex) &&
+      ship
+        .squares
+        .every(s => this.squares[s.index].unrevealed)
+  }
+
   private get ships(): Array<Ship> {
     let oShips = this.squares.reduce((obj, square) => {
       if (!square.ship) return obj

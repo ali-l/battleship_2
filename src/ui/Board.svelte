@@ -7,6 +7,7 @@
     {#each grid as square, i}
         <div class="item" data-state="{square.status}"
              style="grid-row-start: {Math.floor(i / length) + 1}; grid-column-start: { i % length + 1}">
+            {square.index}, { square.probability }
         </div>
     {/each}
 </div>

@@ -9,7 +9,7 @@ export async function guess(grid: Grid) {
   let options = {
     method: 'POST',
     mode: 'cors',
-    body: buildParams({ squares: JSON.stringify(grid.squares) })
+    body: buildParams({ squares: JSON.stringify(grid.squares.map(s => s.toJSON())) })
   }
 
   let response = await fetch(guessURL, options as RequestInit)
