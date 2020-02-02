@@ -16,10 +16,10 @@
         opponentGrid = opponentGrid.processGuess(index)
     }
 
-    function onClick(player) {
+    function onClick(playerBoard) {
         return function (e) {
-            if (player || gameOver) return
             let index = parseInt(e.target.getAttribute('data-index'))
+            if (playerBoard || gameOver || !opponentGrid.squares[index].unrevealed) return
             guess(index)
         }
     }
