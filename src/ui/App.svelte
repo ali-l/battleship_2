@@ -29,9 +29,8 @@
     }
 
     async function resetBoards() {
-        let squares = await lib.generateGrid()
-        playerGrid = new Grid(squares)
-        opponentGrid = new Grid(squares)
+        playerGrid = Grid.generate()
+        opponentGrid = Grid.generate()
     }
 </script>
 

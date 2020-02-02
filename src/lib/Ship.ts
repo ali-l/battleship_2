@@ -10,7 +10,7 @@ export default class Ship {
     let squares = []
 
     for (let i = 0; i < size; i++) {
-      let square = new Square(null, Status.untouched, index + i)
+      let square = new Square(index + i)
       if (square.endOfRow && i != size - 1) {
         return null
       }
@@ -25,7 +25,7 @@ export default class Ship {
     let squares = []
 
     for (let i = 0; i < size; i++) {
-      let square = new Square(null, Status.untouched, index + i * 10)
+      let square = new Square(index + i * 10)
       if (square.endOfColumn && i != size - 1) {
         return null
       }

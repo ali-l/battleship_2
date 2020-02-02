@@ -18,20 +18,12 @@ export default class Square {
   status: Status
   ship: Ship | null
   index: number
-  // @ts-ignore
   probability = 0
 
-  static fromJSON(squareJson: SquareJSON): Square {
-    let ship = squareJson.ship
-    ship = ship ? new Ship(ship.size, ship.id, ship.name, ship.squares) : null
-    return new Square(ship, squareJson.status, squareJson.index)
-  }
-
-  constructor(ship: Ship | null, status: number, index: number) {
-    // @ts-ignore
-    this.status = Status[Status[status]]
-    this.ship = ship
+  constructor(index: number, status: Status = Status.untouched, ship: Ship | null = null) {
     this.index = index
+    this.status = status
+    this.ship = ship
   }
 
   get neighbourIndexes(): Array<number> {

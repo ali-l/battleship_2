@@ -3,17 +3,38 @@ import Ship from "./Ship"
 
 export const length = 10
 
+const defaultShips = [
+  new Ship(2, 1, "Destroyer", []),
+  new Ship(3, 2, "Cruiser", []),
+  new Ship(3, 3, "Submarine", []),
+  new Ship(4, 4, "Battleship", []),
+  new Ship(5, 5, "Aircraft Carrier", []),
+]
+
 export default class Grid {
   squares: Array<Square>
 
+  static generate(): Grid {
+    let squares = []
+    for (let i = 0; i < length ** 2; i++) {
+      squares.push(new Square(i))
+    }
+
+    let grid = new Grid(squares)
+
+    defaultShips.forEach(ship => grid.place(ship.size, ship.name, ship.id))
+
+    return grid
+  }
+
   constructor(squares: Array<Square>) {
-    this.squares = squares.map(s => Square.fromJSON(s))
+    this.squares = squares
     this.calculateProbabilities()
   }
 
   processGuess(index: number): Grid {
     let square = this.squares[index]
-    let newSquare = Square.fromJSON({ ...square })
+    let newSquare = new Square(square.index, square.status, square.ship)
 
     square.ship == null ? newSquare.status = Status.miss : newSquare.status = Status.hit
 
@@ -54,13 +75,13 @@ export default class Grid {
         this.unrevealedSquares.forEach(square => {
           let horizontalShip = Ship.horizontalShipStartingAt(square.index, ship.size)
           let verticalShip = Ship.verticalShipStartingAt(square.index, ship.size)
-          if (horizontalShip && this.canPlace(horizontalShip)) {
+          if (horizontalShip && this.canPlaceBlind(horizontalShip)) {
             horizontalShip.squares.forEach(square => {
               this.squares[square.index].probability += 1
             })
           }
 
-          if (verticalShip && this.canPlace(verticalShip)) {
+          if (verticalShip && this.canPlaceBlind(verticalShip)) {
             verticalShip.squares.forEach(square => {
               this.squares[square.index].probability += 1
             })
@@ -77,13 +98,19 @@ export default class Grid {
     return length ** 2 - 1
   }
 
-  canPlace(ship: Ship): boolean {
+  canPlaceBlind(ship: Ship): boolean {
     return ship
         .squares
         .every(s => s.index <= this.maxIndex) &&
       ship
         .squares
         .every(s => this.squares[s.index].unrevealed)
+  }
+
+  squaresEmpty(ship: Ship): boolean {
+    return ship
+      .squares
+      .every(s => !this.squares[s.index].ship)
   }
 
   shipDead(ship: Ship | null): boolean {
@@ -115,5 +142,23 @@ export default class Grid {
     })
 
     return ships
+  }
+
+  private place(size: number, name: string, id: number) {
+    while (true) {
+      let startIndex = Math.floor(Math.random() * this.squares.length)
+      let ship = Ship.horizontalShipStartingAt(startIndex, size)
+
+      if (ship && this.canPlaceBlind(ship) && this.squaresEmpty(ship)) {
+        ship.name = name
+        ship.id = id
+        ship.squares = ship.squares.map(s => this.squares[s.index])
+        ship.squares.forEach(s => {
+          s.ship = ship
+          s.status = Status.placed_ship
+        })
+        break
+      }
+    }
   }
 }
