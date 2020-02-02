@@ -51,6 +51,8 @@
         text-align: center;
         max-width: 240px;
         margin: 0 auto;
+        box-sizing: border-box;
+        font-family: cursive;
     }
 
     @media (min-width: 640px) {
