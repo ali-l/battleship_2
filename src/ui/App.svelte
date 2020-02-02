@@ -41,7 +41,7 @@
 
     <div class="status">
       {#if gameOver}
-          { gameOverMessage() }
+        { gameOverMessage() }
           <a on:click={resetBoards}>Play again?</a>
       {:else}
           Your Turn
@@ -62,7 +62,14 @@
 
     a {
         color: #337ab7;
+        text-decoration: none;
         cursor: pointer;
+    }
+
+    a:hover, a:focus {
+        color: black;
+        text-decoration: underline;
+        transition: all linear 0.2s;
     }
 
     nav {
