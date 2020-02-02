@@ -62,6 +62,7 @@
 
     a {
         color: #337ab7;
+        cursor: pointer;
     }
 
     nav {
