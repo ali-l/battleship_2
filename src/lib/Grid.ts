@@ -147,7 +147,11 @@ export default class Grid {
   private place(size: number, name: string, id: number) {
     while (true) {
       let startIndex = Math.floor(Math.random() * this.squares.length)
-      let ship = Ship.horizontalShipStartingAt(startIndex, size)
+
+      let ship =
+        Math.floor(Math.random() * 2) ?
+          Ship.horizontalShipStartingAt(startIndex, size)
+          : Ship.verticalShipStartingAt(startIndex, size)
 
       if (ship && this.canPlaceBlind(ship) && this.squaresEmpty(ship)) {
         ship.name = name
