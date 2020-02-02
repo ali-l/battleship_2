@@ -11,17 +11,11 @@
         let squares = await lib.generateGrid()
         playerGrid = new Grid(squares)
         opponentGrid = new Grid(squares)
-
-        playerGrid.calculateProbabilities()
-        opponentGrid.calculateProbabilities()
     })
 
     function guess(index) {
         playerGrid = playerGrid.processGuess(lib.localGuess(playerGrid))
         opponentGrid = opponentGrid.processGuess(index)
-
-        playerGrid.calculateProbabilities()
-        opponentGrid.calculateProbabilities()
     }
 
     function onClick(player) {
@@ -44,10 +38,6 @@
         padding: 1em;
         max-width: 240px;
         margin: 0 auto;
-    }
-
-    .button {
-        cursor: pointer;
     }
 
     @media (min-width: 640px) {

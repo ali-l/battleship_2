@@ -8,6 +8,7 @@ export default class Grid {
 
   constructor(squares: Array<Square>) {
     this.squares = squares.map(s => Square.fromJSON(s))
+    this.calculateProbabilities()
   }
 
   processGuess(index: number): Grid {
@@ -71,9 +72,7 @@ export default class Grid {
   }
 
   private resetProbabilities() {
-    this.squares.forEach(s => {
-      s.probability = 0
-    })
+    this.squares.forEach(s => s.probability = 0)
   }
 
   get maxIndex(): number {
