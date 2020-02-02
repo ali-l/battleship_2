@@ -27,7 +27,7 @@
         display: inline-grid;
         justify-items: center;
         align-items: center;
-        margin: 10px 60px 15px;
+        margin: 10px 60px 30px;
     }
 
     .title {
@@ -48,7 +48,18 @@
         width: 60px;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 1500px) {
+        .item {
+            height: 50px;
+            width: 50px;
+        }
+
+        .container {
+            margin: 10px 30px 30px;
+        }
+    }
+
+    @media (max-width: 550px) {
         .item {
             height: 35px;
             width: 35px;
