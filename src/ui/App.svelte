@@ -7,6 +7,8 @@
     let playerGrid = new Grid([])
     let opponentGrid = new Grid([])
 
+    $: gameOver = playerGrid.allShipsSunk || opponentGrid.allShipsSunk
+
     onMount(async function () {
         let squares = await lib.generateGrid()
         playerGrid = new Grid(squares)
@@ -20,7 +22,7 @@
 
     function onClick(player) {
         return function (e) {
-            if (player) return
+            if (player || gameOver) return
             let index = parseInt(e.target.getAttribute('data-index'))
             guess(index)
         }
@@ -29,7 +31,7 @@
 
 <main>
     <Board grid={playerGrid.squares} player={true} onSquareClick={onClick}/>
-    <Board grid={opponentGrid.squares} onSquareClick={onClick} />
+    <Board grid={opponentGrid.squares} onSquareClick={onClick} gameOver={gameOver}/>
 </main>
 
 <style>

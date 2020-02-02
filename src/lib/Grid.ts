@@ -29,6 +29,10 @@ export default class Grid {
     return this.ships.filter(s => s.alive)
   }
 
+  get allShipsSunk(): boolean {
+    return this.aliveShips.length == 0
+  }
+
   get unrevealedSquares(): Array<Square> {
     return this
       .squares
