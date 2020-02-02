@@ -9,11 +9,7 @@
 
     $: gameOver = playerGrid.allShipsSunk || opponentGrid.allShipsSunk
 
-    onMount(async function () {
-        let squares = await lib.generateGrid()
-        playerGrid = new Grid(squares)
-        opponentGrid = new Grid(squares)
-    })
+    onMount(resetBoards)
 
     function guess(index) {
         playerGrid = playerGrid.processGuess(lib.localGuess(playerGrid))
@@ -31,6 +27,12 @@
     function gameOverMessage() {
         return playerGrid.allShipsSunk ? 'Opponent Wins.' : 'You Win!'
     }
+
+    async function resetBoards() {
+        let squares = await lib.generateGrid()
+        playerGrid = new Grid(squares)
+        opponentGrid = new Grid(squares)
+    }
 </script>
 
 <main>
@@ -39,7 +41,12 @@
     </nav>
 
     <div class="status">
-        {gameOver ? gameOverMessage() : 'Your Turn'}
+      {#if gameOver}
+          { gameOverMessage() }
+          <a on:click={resetBoards}>Play again?</a>
+      {:else}
+          Your Turn
+      {/if}
     </div>
 
     <Board grid={opponentGrid} onSquareClick={onClick} gameOver={gameOver}/>
@@ -49,20 +56,17 @@
 <style>
     main {
         text-align: center;
-        max-width: 240px;
         margin: 0 auto;
         box-sizing: border-box;
         font-family: cursive;
     }
 
-    @media (min-width: 640px) {
-        main {
-            max-width: none;
-        }
+    a {
+        color: #337ab7;
     }
 
     nav {
-        font-size: 34px;
+        font-size: 36px;
         font-weight: 700;
         padding: 5px;
         margin-bottom: 20px;
@@ -70,7 +74,7 @@
     }
 
     .status {
-        font-size: 22px;
+        font-size: 24px;
         margin-bottom: 20px;
     }
 </style>
