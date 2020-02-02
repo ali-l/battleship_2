@@ -6,12 +6,14 @@
     $: length = Math.sqrt(grid.length)
 </script>
 
-<div class="container {player ? 'player' : 'opponent'} {gameOver && 'game-over'}" style="--length:{length}">
+<div class="container {player ? 'player' : 'opponent'} {gameOver && 'game-over'}">
+    <div class="title" style="--length:{length}">
+        {player ? 'Your' : 'Opponent\'s'} Board
+    </div>
     {#each grid as square, i}
         <div class="item" data-state="{square.status}" data-index="{square.index}"
-             style="grid-row-start: {Math.floor(i / length) + 1}; grid-column-start: { i % length + 1}"
+             style="grid-row-start: {Math.floor(i / length) + 2}; grid-column-start: { i % length + 1}"
              on:click={onSquareClick(player)}>
-            {square.index}, { square.probability }
         </div>
     {/each}
 </div>
@@ -21,17 +23,25 @@
         display: inline-grid;
         justify-items: center;
         align-items: center;
+        margin: 10px 60px 15px;
+    }
 
-        grid-template-columns: repeat(--length, 1fr);
-        grid-template-rows: repeat(--length, 1fr);
-        height: 700px;
-        width: 700px;
+    .title {
+        grid-column: span var(--length);
+        grid-row: 1;
+
+        margin-bottom: 10px;
+        font-weight: 700;
+        font-size: 18px;
     }
 
     .item {
         border: 1px solid darkgray;
         justify-self: stretch;
         align-self: stretch;
+
+        height: 60px;
+        width: 60px;
     }
 
     .item[data-state = '0'] {

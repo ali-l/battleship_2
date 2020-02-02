@@ -27,17 +27,28 @@
             guess(index)
         }
     }
+
+    function gameOverMessage() {
+        return playerGrid.allShipsSunk ? 'Opponent Wins.' : 'You Win!'
+    }
 </script>
 
 <main>
-    <Board grid={playerGrid.squares} player={true} onSquareClick={onClick}/>
+    <nav>
+        Battleship
+    </nav>
+
+    <div class="status">
+        {gameOver ? gameOverMessage() : 'Your Turn'}
+    </div>
+
     <Board grid={opponentGrid.squares} onSquareClick={onClick} gameOver={gameOver}/>
+    <Board grid={playerGrid.squares} player={true} onSquareClick={onClick}/>
 </main>
 
 <style>
     main {
         text-align: center;
-        padding: 1em;
         max-width: 240px;
         margin: 0 auto;
     }
@@ -46,6 +57,19 @@
         main {
             max-width: none;
         }
+    }
+
+    nav {
+        font-size: 34px;
+        font-weight: 700;
+        padding: 5px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .status {
+        font-size: 22px;
+        margin-bottom: 20px;
     }
 </style>
 
