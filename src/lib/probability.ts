@@ -1,7 +1,6 @@
 import Grid from "./Grid"
 
 export function guess(grid: Grid): number {
-  console.log('probability guess')
   return grid.squares
     .also(_ => grid.calculateProbabilities())
     .run(_ => grid.highestProbabilityUnrevealedSquare.index)

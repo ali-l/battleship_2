@@ -54,21 +54,15 @@ export default class Grid {
             horizontalShip.squares.forEach(square => {
               this.squares[square.index].probability += 1
             })
-          } else {
-            // console.log('cant place', ship, ' at', square.index)
           }
 
           if (verticalShip && this.canPlace(verticalShip)) {
             verticalShip.squares.forEach(square => {
               this.squares[square.index].probability += 1
             })
-          } else {
-            // console.log('cant place', ship, ' at', square)
           }
         })
       })
-
-    console.log('highest probability: ', this.highestProbabilityUnrevealedSquare)
   }
 
   private resetProbabilities() {

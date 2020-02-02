@@ -6,16 +6,11 @@ import Square from "./Square"
 
 export async function guess(grid: Grid): Promise<number> {
   let index = await api.guess(grid)
-  console.log("API Guess: ", index)
   return Number.parseInt(index)
 }
 
 export function localGuess(grid: Grid): number {
-  let index = selectGuesser(grid)()
-
-  console.log('Local guess: ', index)
-
-  return index
+  return selectGuesser(grid)()
 }
 
 function selectGuesser(grid: Grid): () => number {
