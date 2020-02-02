@@ -12,7 +12,7 @@
     onMount(resetBoards)
 
     function guess(index) {
-        playerGrid = playerGrid.processGuess(lib.localGuess(playerGrid))
+        playerGrid = playerGrid.processGuess(lib.guess(playerGrid))
         opponentGrid = opponentGrid.processGuess(index)
     }
 
