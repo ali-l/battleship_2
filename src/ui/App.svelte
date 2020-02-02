@@ -29,8 +29,8 @@
 </script>
 
 <main>
-    <Board grid={grid.squares}/>
-    <Board grid={grid2.squares}/>
+    <Board grid={grid.squares} player={true}/>
+    <Board grid={grid2.squares} />
 
     <div class="button" on:click={guess} on:click>
         Guess
