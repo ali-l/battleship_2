@@ -4,37 +4,38 @@
     import * as lib from '../lib/main'
     import Grid from "../lib/Grid"
 
-    let grid = new Grid([])
-    let grid2 = new Grid([])
+    let playerGrid = new Grid([])
+    let opponentGrid = new Grid([])
 
     onMount(async function () {
         let squares = await lib.generateGrid()
-        grid = new Grid(squares)
-        grid2 = new Grid(squares)
+        playerGrid = new Grid(squares)
+        opponentGrid = new Grid(squares)
 
-        grid.calculateProbabilities()
-        grid2.calculateProbabilities()
+        playerGrid.calculateProbabilities()
+        opponentGrid.calculateProbabilities()
     })
 
-    async function guess() {
-        let index = await lib.guess(grid)
-        grid = grid.processGuess(index)
+    function guess(index) {
+        playerGrid = playerGrid.processGuess(lib.localGuess(playerGrid))
+        opponentGrid = opponentGrid.processGuess(index)
 
-        index = await lib.localGuess(grid2)
-        grid2 = grid2.processGuess(index)
+        playerGrid.calculateProbabilities()
+        opponentGrid.calculateProbabilities()
+    }
 
-        grid.calculateProbabilities()
-        grid2.calculateProbabilities()
+    function onClick(player) {
+        return function (e) {
+            if (player) return
+            let index = parseInt(e.target.getAttribute('data-index'))
+            guess(index)
+        }
     }
 </script>
 
 <main>
-    <Board grid={grid.squares} player={true}/>
-    <Board grid={grid2.squares} />
-
-    <div class="button" on:click={guess} on:click>
-        Guess
-    </div>
+    <Board grid={playerGrid.squares} player={true} onSquareClick={onClick}/>
+    <Board grid={opponentGrid.squares} onSquareClick={onClick} />
 </main>
 
 <style>

@@ -1,13 +1,15 @@
 <script>
     export let grid = []
     export let player = false
+    export let onSquareClick = function(){}
     $: length = Math.sqrt(grid.length)
 </script>
 
 <div class="container {player ? 'player' : 'opponent'}" style="--length:{length}">
     {#each grid as square, i}
-        <div class="item" data-state="{square.status}"
-             style="grid-row-start: {Math.floor(i / length) + 1}; grid-column-start: { i % length + 1}">
+        <div class="item" data-state="{square.status}" data-index="{square.index}"
+             style="grid-row-start: {Math.floor(i / length) + 1}; grid-column-start: { i % length + 1}"
+             on:click={onSquareClick(player)}>
             {square.index}, { square.probability }
         </div>
     {/each}
