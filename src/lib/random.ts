@@ -2,6 +2,7 @@ import Grid from "./Grid"
 import Square, { Status } from "./Square"
 
 export function guess(grid: Grid): number {
+  console.log('random guess')
   return grid.squares
     .filter(square => square.status != Status.miss && square.status != Status.hit)
     .run(squares => pickIndex(squares))

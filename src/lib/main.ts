@@ -1,22 +1,27 @@
 import Grid from './Grid'
-import { guess as randomGuess } from './Random'
+import { guess as randomGuess } from './random'
+import { guess as proximityGuess } from './proximity'
 import * as api from './apiClient'
 import Square from "./Square"
 
 export async function guess(grid: Grid): Promise<number> {
-  localGuess(grid)
-
   let index = await api.guess(grid)
   console.log("API Guess: ", index)
   return Number.parseInt(index)
 }
 
 export function localGuess(grid: Grid): number {
-  let index = randomGuess(grid)
+  let index = selectGuesser(grid)()
 
   console.log('Local guess: ', index)
+  console.log('partially hit ships: ', grid.partiallyHitShips)
 
   return index
+}
+
+function selectGuesser(grid: Grid): () => number {
+  let guesser = grid.partiallyHitShips.length > 0 ? proximityGuess : randomGuess
+  return () => guesser(grid)
 }
 
 export async function generateGrid(): Promise<Array<Square>> {
