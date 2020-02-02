@@ -42,8 +42,8 @@
         {gameOver ? gameOverMessage() : 'Your Turn'}
     </div>
 
-    <Board grid={opponentGrid.squares} onSquareClick={onClick} gameOver={gameOver}/>
-    <Board grid={playerGrid.squares} player={true} onSquareClick={onClick}/>
+    <Board grid={opponentGrid} onSquareClick={onClick} gameOver={gameOver}/>
+    <Board grid={playerGrid} player={true} onSquareClick={onClick}/>
 </main>
 
 <style>

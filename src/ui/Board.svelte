@@ -1,17 +1,20 @@
 <script>
-    export let grid = []
+    export let grid = {squares: []}
     export let player = false
     export let onSquareClick = function(){}
     export let gameOver = false
-    $: length = Math.sqrt(grid.length)
+    $: length = Math.sqrt(grid.squares.length)
 </script>
 
 <div class="container {player ? 'player' : 'opponent'} {gameOver && 'game-over'}">
     <div class="title" style="--length:{length}">
         {player ? 'Your' : 'Opponent\'s'} Board
     </div>
-    {#each grid as square, i}
-        <div class="item" data-state="{square.status}" data-index="{square.index}"
+    {#each grid.squares as square, i}
+        <div class="item"
+             data-state="{square.status}"
+             data-index="{square.index}"
+             data-dead-ship="{grid.shipDead(square.ship)}"
              style="grid-row-start: {Math.floor(i / length) + 2}; grid-column-start: { i % length + 1}"
              on:click={onSquareClick(player)}>
         </div>
@@ -50,6 +53,10 @@
 
     .item[data-state = '3'] {
         background-color: lightcoral;
+    }
+
+    .item[data-dead-ship = 'true'] {
+        background-color: grey;
     }
 
     .player > .item[data-state = '4'] {

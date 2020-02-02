@@ -86,6 +86,12 @@ export default class Grid {
         .every(s => this.squares[s.index].unrevealed)
   }
 
+  shipDead(ship: Ship | null): boolean {
+    if (!ship) return false
+
+    return !this.aliveShips.find(s => s.id == ship.id && s.alive)
+  }
+
   private get ships(): Array<Ship> {
     let oShips = this.squares.reduce((obj, square) => {
       if (!square.ship) return obj
