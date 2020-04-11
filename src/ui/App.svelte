@@ -4,8 +4,9 @@
     import * as lib from '../lib/main'
     import Grid from "../lib/Grid"
 
-    let playerGrid = new Grid([])
-    let opponentGrid = new Grid([])
+    let playerGrid
+    let opponentGrid
+    resetBoards()
 
     $: gameOver = playerGrid.allShipsSunk || opponentGrid.allShipsSunk
 

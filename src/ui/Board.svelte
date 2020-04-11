@@ -1,10 +1,11 @@
 <script>
-    export let grid = { squares: [] }
+    export let grid
     export let player = false
     export let onSquareClick = function () {
     }
     export let gameOver = false
-    $: length = Math.sqrt(grid.squares.length)
+
+    let length = Math.sqrt(grid.squares.length)
 </script>
 
 <div class="container {player ? 'player' : 'opponent'} {gameOver && 'game-over'}">
