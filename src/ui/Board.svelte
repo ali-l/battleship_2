@@ -1,8 +1,7 @@
 <script>
     export let grid
     export let player = false
-    export let onSquareClick = function () {
-    }
+    export let onSquareClick = function () {}
     export let gameOver = false
 
     let length = Math.sqrt(grid.squares.length)
@@ -18,7 +17,7 @@
            data-index="{square.index}"
            data-dead-ship="{grid.shipDead(square.ship)}"
            style="grid-row-start: {Math.floor(i / length) + 2}; grid-column-start: { i % length + 1}"
-           on:click={onSquareClick(player)}>
+           on:click={onSquareClick}>
       </div>
   {/each}
 </div>

@@ -17,12 +17,10 @@
         opponentGrid = opponentGrid.processGuess(index)
     }
 
-    function onClick(playerBoard) {
-        return function (e) {
-            let index = parseInt(e.target.getAttribute('data-index'))
-            if (playerBoard || gameOver || !opponentGrid.squares[index].unrevealed) return
-            guess(index)
-        }
+    function onClick(e) {
+        let index = parseInt(e.target.getAttribute('data-index'))
+        if (gameOver || !opponentGrid.squares[index].unrevealed) return
+        guess(index)
     }
 
     function gameOverMessage() {
@@ -50,7 +48,7 @@
     </div>
 
     <Board grid={opponentGrid} onSquareClick={onClick} gameOver={gameOver}/>
-    <Board grid={playerGrid} player={true} onSquareClick={onClick}/>
+    <Board grid={playerGrid} player={true}/>
 </main>
 
 <style>
