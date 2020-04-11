@@ -29,4 +29,3 @@ function vicinityGuess(ship: Ship, grid: Grid): number {
     .unrevealedNeighbourSquares(grid)
     .run(a => a[0].index)
 }
-
