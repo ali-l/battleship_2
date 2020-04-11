@@ -47,7 +47,7 @@
       {/if}
     </div>
 
-    <Board grid={opponentGrid} onSquareClick={onClick} gameOver={gameOver}/>
+    <Board grid={opponentGrid} onSquareClick={onClick} clickable={!gameOver}/>
     <Board grid={playerGrid} player={true}/>
 </main>
 

@@ -2,12 +2,12 @@
     export let grid
     export let player = false
     export let onSquareClick = function () {}
-    export let gameOver = false
+    export let clickable = false
 
     let length = Math.sqrt(grid.squares.length)
 </script>
 
-<div class="container {player ? 'player' : 'opponent'} {gameOver && 'game-over'}">
+<div class="container {player ? 'player' : 'opponent'} {clickable && 'clickable'}">
     <div class="title" style="--length:{length}">
       {player ? 'Your' : 'Opponent\'s'} Board
     </div>
@@ -90,7 +90,7 @@
         background-color: skyblue;
     }
 
-    .opponent:not(.game-over) > .item[data-state = '4']:hover, .opponent:not(.game-over) > .item[data-state = '0']:hover {
+    .clickable > .item[data-state = '4']:hover, .clickable > .item[data-state = '0']:hover {
         background-color: #c9e9f6;
         cursor: pointer;
     }
